@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, SafeAreaView, ScrollView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [inputText, setInputText] = useState('');
@@ -9,16 +9,18 @@ export default function App() {
   // Simple encoding/decoding function (base64)
   const encodeText = () => {
     try {
-      const encoded = Buffer.from(inputText).toString('base64');
+      // Using btoa for encoding in JavaScript (equivalent to Base64)
+      const encoded = btoa(inputText);
       setOutputText(encoded);
     } catch (error) {
-      setOutputText('Error encoding text');
+      setOutputText('Error encoding text. Make sure input contains valid characters.');
     }
   };
 
   const decodeText = () => {
     try {
-      const decoded = Buffer.from(inputText, 'base64').toString('utf-8');
+      // Using atob for decoding in JavaScript
+      const decoded = atob(inputText);
       setOutputText(decoded);
     } catch (error) {
       setOutputText('Error decoding text. Make sure input is valid base64.');
